@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+
+
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -22,5 +25,27 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+   /* font-family: 'DM Sans', sans-serif; */
+}
+
+
+.custom-dots li button::before {
+  content: none;
+  /* remove default slick dot */
+}
+
+.custom-dot {
+  width: 14px;
+  height: 14px;
+  background-color: gray;
+  border-radius: 9999px;
+  margin: 0 5px;
+  border: 2px solid #fff;
+  transition: background-color 0.3s ease;
+}
+
+.custom-dots .slick-active .custom-dot {
+  background-color: #34C759;
+  /* Tailwind blue-500 */
 }
