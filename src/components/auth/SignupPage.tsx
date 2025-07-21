@@ -8,6 +8,7 @@ import { AlertCircle, Lock, Mail, User } from 'lucide-react';
 import Button from '../shared/Button';
 import { authAPI } from '@/utils/api';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 const SignupPage = () => {
 
@@ -51,13 +52,13 @@ const SignupPage = () => {
                 router.push("/verify-otp")
             }
 
-        } catch (err:any) {
+        } catch (error) {
             setLoading(false);
-            console.error(err);
+            const err = error as { response?: { data?: { message?: string } } };
+            toast.error(err?.response?.data?.message || 'Failed to send message');
 
             const message =
                 err?.response?.data?.message ||
-                err?.message ||
                 "An unexpected error occurred";
 
             setError(message); // ✅ always a string

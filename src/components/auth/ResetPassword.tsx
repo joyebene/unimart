@@ -6,6 +6,7 @@ import Image from 'next/image';
 import InputField from '../shared/InputField';
 import { Lock } from 'lucide-react';
 import { authAPI } from '@/utils/api';
+import toast from 'react-hot-toast';
 
 const ResetPassword = () => {
   const [formData, setFormData] = useState({
@@ -47,9 +48,9 @@ const ResetPassword = () => {
       setOpenNav(true);
       localStorage.removeItem("otpEmail");
       localStorage.removeItem("verifiedOtp");
-    } catch (error: any) {
-      console.error("Password reset failed:", error?.response?.data || error.message);
-      alert("Password reset failed. Please try again.");
+    } catch (error) {
+      const err = error as { response?: { data?: { message?: string } } };
+      toast.error(err?.response?.data?.message || 'Password reset failed. Please try again.');
     } finally {
       setLoading(false); // Stop loading
     }

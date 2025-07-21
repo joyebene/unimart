@@ -3,7 +3,7 @@
 import DashboardLayout from '@/components/Dashboard/DasboardLayout';
 import { Search } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
-import { productAPI } from '@/utils/api';
+import { productAPI, Product } from '@/utils/api';
 import toast from 'react-hot-toast';
 import ProductList from '@/components/Dashboard/ProductList';
 import { useSearchParams } from 'next/navigation';
@@ -13,8 +13,8 @@ const BrowseProductsPage = () => {
   const categoryParam = searchParams.get('category') || '';
   
   const [query, setQuery] = useState('');
-  const [allProducts, setAllProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [searched, setSearched] = useState(false);
 
@@ -25,8 +25,8 @@ const BrowseProductsPage = () => {
         setAllProducts(res.data);
 
         if (categoryParam) {
-          const filtered = res.data.filter((product: any) =>
-            product.category.toLowerCase() === categoryParam.toLowerCase()
+          const filtered = res.data.filter((product: Product) =>
+            product.category?.toLowerCase() === categoryParam.toLowerCase()
           );
           setFilteredProducts(filtered);
           setSearched(true);
@@ -47,10 +47,10 @@ const BrowseProductsPage = () => {
       toast.error('Please enter a search term');
       return;
     }
-    const filtered = allProducts.filter((product: any) =>
+    const filtered = allProducts.filter((product: Product) =>
       product.title.toLowerCase().includes(query.toLowerCase()) ||
       product.description?.toLowerCase().includes(query.toLowerCase()) ||
-      product.category.toLowerCase().includes(query.toLowerCase()) ||
+      product.category?.toLowerCase().includes(query.toLowerCase()) ||
       product.location?.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredProducts(filtered);
@@ -80,7 +80,7 @@ const BrowseProductsPage = () => {
               onClick={handleSearch}
               className='h-12 bg-[#f7dc67] flex items-center justify-center px-4 rounded-r-lg hover:bg-[#eacb4f] transition'
             >
-              <Search size={24} color='white' />
+              {<Search size={24} color='white' />}
             </button>
           </div>
 

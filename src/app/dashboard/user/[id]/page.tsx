@@ -1,18 +1,48 @@
-"use client";
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { BookOpen, GraduationCap, MapPin, Phone, Mail, MessageCircle, Send, X } from 'lucide-react';
+import {
+  BookOpen,
+  GraduationCap,
+  MapPin,
+  Phone,
+  Mail,
+  MessageCircle,
+  Send,
+  X,
+} from 'lucide-react';
 import DashboardLayout from '@/components/Dashboard/DasboardLayout';
 import { userAPI } from '@/utils/api';
 import toast from 'react-hot-toast';
 
+interface UserPrivacy {
+  showAddress: boolean;
+  showWhatsapp: boolean;
+  showEmail: boolean;
+}
+
+interface User {
+  id: string;
+  fullName: string;
+  department?: string;
+  level?: string;
+  address?: string;
+  whatsappNum?: string;
+  email: string;
+  profileUrl?: string;
+  bio?: string;
+  createdAt: string;
+  privacy?: UserPrivacy;
+}
+
 const SingleUserPage = () => {
   const params = useParams();
   const id = params.id as string;
-  const [user, setUser] = useState<any>(null);
+
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   const [showModal, setShowModal] = useState(false);
@@ -24,10 +54,9 @@ const SingleUserPage = () => {
       try {
         const res = await userAPI.getById(id);
         setUser(res.data);
-        console.log(res.data);
-        
-      } catch (error: any) {
-        toast.error(error?.response?.data?.message || 'Failed to fetch user.');
+      } catch (error) {
+        const err = error as { response?: { data?: { message?: string } } };
+        toast.error(err?.response?.data?.message || 'Failed to load user profile');
       } finally {
         setLoading(false);
       }
@@ -43,15 +72,21 @@ const SingleUserPage = () => {
     }
     setSending(true);
     try {
-      await userAPI.sendMessage({ toUserId: user.id, content: messageText });
+      await userAPI.sendMessage({ toUserId: user!.id, content: messageText });
       toast.success('Message sent successfully');
       setMessageText('');
       setShowModal(false);
-    } catch (err: any) {
+    } catch (error) {
+      const err = error as { response?: { data?: { message?: string } } };
       toast.error(err?.response?.data?.message || 'Failed to send message');
     } finally {
       setSending(false);
     }
+  };
+
+  const formatPhoneNumber = (num: string) => {
+    if (!num) return '';
+    return num.startsWith('0') ? `234${num.slice(1)}` : num;
   };
 
   if (loading) return <p className="text-center mt-10 text-gray-500">Loading profile...</p>;
@@ -60,16 +95,10 @@ const SingleUserPage = () => {
   const details = [
     { label: 'Department', icon: <BookOpen className="text-green-600" size={20} />, value: user.department || 'Not provided' },
     { label: 'Level', icon: <GraduationCap className="text-green-600" size={20} />, value: user.level || 'Not provided' },
-    { label: 'Address', icon: <MapPin className="text-green-600" size={20} />, value: user.privacy?.showAddress ? user.address : 'Not provided' },
-    { label: 'WhatsApp Number', icon: <Phone className="text-green-600" size={20} />, value: user.privacy?.showWhatsapp ? user.whatsappNum : 'Not provided' },
-    { label: 'Email', icon: <Mail className="text-green-600" size={20} />, value: user.privacy?.showEmail ? user.email : 'Not provided' },
+    { label: 'Address', icon: <MapPin className="text-green-600" size={20} />, value: user.privacy?.showAddress ? user.address || 'Not provided' : 'Hidden' },
+    { label: 'WhatsApp Number', icon: <Phone className="text-green-600" size={20} />, value: user.privacy?.showWhatsapp ? user.whatsappNum || 'Not provided' : 'Hidden' },
+    { label: 'Email', icon: <Mail className="text-green-600" size={20} />, value: user.privacy?.showEmail ? user.email || 'Not provided' : 'Hidden' },
   ];
-
-    const formatPhoneNumber = (num: string) => {
-    if (!num) return '';
-    return num.startsWith('0') ? `234${num.slice(1)}` : num;
-  };
-
 
   return (
     <DashboardLayout>
@@ -78,11 +107,19 @@ const SingleUserPage = () => {
           <h1 className="text-3xl font-bold capitalize">
             {user.fullName} <span className="text-green-600">Profile</span>
           </h1>
-          <p className="text-gray-500 text-sm">Joined on {new Date(user.createdAt).toLocaleDateString()}</p>
+          <p className="text-gray-500 text-sm">
+            Joined on {new Date(user.createdAt).toLocaleDateString()}
+          </p>
         </div>
 
         <div className="flex flex-col sm:flex-row items-center gap-6 mb-10 border-b border-gray-500 shadow-sm p-4 pb-4">
-          <Image src={user.profileUrl || '/dashboard/default-avatar.png'} alt={user.fullName} width={100} height={100} className="rounded-full border object-cover w-24 h-24" />
+          <Image
+            src={user.profileUrl || '/dashboard/default-avatar.png'}
+            alt={user.fullName}
+            width={100}
+            height={100}
+            className="rounded-full border object-cover w-24 h-24"
+          />
           <div className="text-center sm:text-left">
             <h2 className="text-xl font-semibold capitalize">{user.fullName}</h2>
             <p className="text-sm text-gray-500">Student at BASUG</p>
@@ -100,7 +137,9 @@ const SingleUserPage = () => {
           {details.map((item, index) => (
             <div key={index} className="flex items-start gap-3 p-4 border border-gray-200 rounded-lg bg-gray-50">
               {item.icon}
-              <p><span className="font-medium text-gray-700">{item.label}:</span> {item.value}</p>
+              <p>
+                <span className="font-medium text-gray-700">{item.label}:</span> {item.value}
+              </p>
             </div>
           ))}
         </div>
@@ -118,7 +157,8 @@ const SingleUserPage = () => {
             </Link>
           )}
 
-          <button type='button'
+          <button
+            type="button"
             onClick={() => setShowModal(true)}
             className="inline-flex items-center gap-2 bg-[#f7DC67] hover:bg-yellow-400 text-white px-6 py-2 rounded-full transition"
           >
@@ -132,7 +172,8 @@ const SingleUserPage = () => {
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
           <div className="bg-white rounded-lg p-6 w-[90%] sm:w-[400px] relative">
-            <button type='button'
+            <button
+              type="button"
               className="absolute top-2 right-2 text-gray-500 hover:text-red-500"
               onClick={() => setShowModal(false)}
             >
@@ -147,7 +188,8 @@ const SingleUserPage = () => {
               onChange={(e) => setMessageText(e.target.value)}
             ></textarea>
 
-            <button type='button'
+            <button
+              type="button"
               onClick={handleSendMessage}
               disabled={sending}
               className="bg-[#34C759] text-white w-full py-2 rounded mt-3 hover:bg-green-700 transition"

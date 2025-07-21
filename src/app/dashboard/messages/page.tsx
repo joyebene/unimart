@@ -33,8 +33,9 @@ const MessagesPage = () => {
     try {
       const res = await userAPI.getMyMessages();
       setMessages(res.data);
-    } catch (err: any) {
-      toast.error(err?.response?.data?.message || "Failed to fetch messages");
+    } catch (err) {
+      const error = err as { response?: { data?: { message?: string } } };
+      toast.error(error?.response?.data?.message || "Failed to fetch messages");
     } finally {
       setLoading(false);
     }
@@ -52,7 +53,6 @@ const MessagesPage = () => {
 
     setSending(true);
     try {
-      // Send the reply message
       await userAPI.sendMessage({
         toUserId: selectedUser.fromUser.id,
         content: replyText,
@@ -63,18 +63,17 @@ const MessagesPage = () => {
       setReplyText("");
       setSelectedUser(null);
 
-      // Mark the message as read if not already
       if (!selectedUser.read) {
         await userAPI.markMessageAsRead(selectedUser.id);
-
-        // Update the message list state
         setMessages((prev) =>
-          prev.map((m) => (m.id === selectedUser.id ? { ...m, read: true } : m))
+          prev.map((m) =>
+            m.id === selectedUser.id ? { ...m, read: true } : m
+          )
         );
       }
-
-    } catch (err: any) {
-      toast.error(err?.response?.data?.message || "Failed to send reply");
+    } catch (err) {
+      const error = err as { response?: { data?: { message?: string } } };
+      toast.error(error?.response?.data?.message || "Failed to send reply");
     } finally {
       setSending(false);
     }

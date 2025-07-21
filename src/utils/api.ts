@@ -56,6 +56,7 @@ export interface Product {
     availability?: number;
     seller: {
         connect: { id: string },  // Prisma relation connect
+         fullName?: string;
     };
     createdAt?: string;
     updatedAt?: string;
@@ -94,7 +95,9 @@ export interface OTPVerifyDTO {
 }
 
 export interface ResetPasswordDTO {
-    token: string;
+    token?: string;
+    email: string;
+    otp: string;
     newPassword: string;
 }
 

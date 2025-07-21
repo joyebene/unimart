@@ -31,7 +31,7 @@ const VerifyOTP = () => {
         }
 
         try {
-            const response = await authAPI.resendOTP( email );
+            const response = await authAPI.resendOTP(email);
 
             if (response.status === 200) {
                 toast.success("OTP resent successfully!");
@@ -39,9 +39,9 @@ const VerifyOTP = () => {
                 setResendEnabled(false);
                 setIsResending(false);
             }
-        } catch (error: any) {
-            console.error("Error resending OTP:", error?.response?.data || error.message);
-            toast.error("Failed to resend OTP. Please try again.");
+        } catch (error) {
+            const err = error as { response?: { data?: { message?: string } } };
+            toast.error(err?.response?.data?.message || 'Failed to resend OTP. Please try again.');
         } finally {
             setIsResending(false);
         }
@@ -87,10 +87,10 @@ const VerifyOTP = () => {
                 }
             }
 
-        } catch (error: any) {
-            console.error("OTP Verification failed:", error?.response?.data || error.message);
-            toast.error("Invalid OTP. Please try again.");
-
+        } catch (error) {
+            const err = error as { response?: { data?: { message?: string } } };
+            toast.error(err?.response?.data?.message || 'Invalid OTP. Please try again.');
+   
         } finally {
             setIsVerifying(false);
         }

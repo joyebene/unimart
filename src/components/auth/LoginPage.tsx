@@ -8,6 +8,7 @@ import { AlertCircle, Lock, Mail } from 'lucide-react';
 import { authAPI } from '@/utils/api';
 import Button from '../shared/Button';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 // import toast from 'react-hot-toast';
 
 const LoginPage = () => {
@@ -48,13 +49,14 @@ const LoginPage = () => {
 
             }
 
-        } catch (err: any) {
+        } catch (error) {
+            const err = error as { response?: { data?: { message?: string } } };
+            toast.error(err?.response?.data?.message || 'Failed to login');
+
             setLoading(false);
-            console.error(err);
 
             const message =
                 err?.response?.data?.message ||
-                err?.message ||
                 "An unexpected error occurred";
 
             setError(message); // ✅ always a string
@@ -103,9 +105,9 @@ const LoginPage = () => {
                                             localStorage.setItem("otpEmail", formData.email);
                                             localStorage.setItem("otpPurpose", "register");
                                             router.push("/verify-otp");
-                                        } catch (err: any) {
-                                            console.error("Failed to resend OTP", err);
-                                            // Optionally show toast or error
+                                        } catch (error) {
+                                            const err = error as { response?: { data?: { message?: string } } };
+                                            toast.error(err?.response?.data?.message || 'Failed to resend OTP');
                                         }
                                     }}
                                     className="text-[#34C759] font-medium underline mt-4 text-left ml-5 sm:ml-10 text-[10px] sm:text-sm"

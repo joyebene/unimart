@@ -18,7 +18,8 @@ const Navbar = ({ setOpenNav }: menuProps) => {
       try {
         const res = await userAPI.getUnreadCount();  // You should have this in your api.ts
         setUnreadCount(res.data?.count || 0);
-      } catch (err: any) {
+      } catch (error) {
+      const err = error as { response?: { data?: { message?: string } } };
         toast.error(err?.response?.data?.message || "Failed to fetch unread messages");
       }
     };

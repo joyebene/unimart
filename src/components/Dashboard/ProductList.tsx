@@ -2,20 +2,20 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { productAPI, userAPI } from "@/utils/api";
+import { productAPI, userAPI, Product } from "@/utils/api";
 import { Heart, PackageX } from "lucide-react";
 import toast from "react-hot-toast";
 
-interface Product {
-  id: string;
-  title: string;
-  imageUrl: string;
-  category: string;
-  price: number;
-  seller: {
-    fullName: string;
-  };
-}
+// interface Product {
+//   id: string;
+//   title: string;
+//   imageUrl: string;
+//   category: string;
+//   price: number;
+//   seller: {
+//     fullName: string;
+//   };
+// }
 
 interface ProductListProps {
   limit?: number;
@@ -32,19 +32,19 @@ const ProductCard = ({
   setWishlist: React.Dispatch<React.SetStateAction<string[]>>;
 }) => {
   const [loading, setLoading] = useState(false);
-  const isWishlisted = wishlist.includes(product.id);
+  const isWishlisted = wishlist.includes(product._id);
 
   const toggleWishlist = async () => {
     if (loading) return;
     setLoading(true);
     try {
       if (isWishlisted) {
-        await userAPI.removeWishlist(product.id);
-        setWishlist((prev) => prev.filter((id) => id !== product.id));
+        await userAPI.removeWishlist(product._id);
+        setWishlist((prev) => prev.filter((id) => id !== product._id));
         toast.success("Removed from wishlist");
       } else {
-        await userAPI.addWishlist(product.id);
-        setWishlist((prev) => [...prev, product.id]);
+        await userAPI.addWishlist(product._id);
+        setWishlist((prev) => [...prev, product._id]);
         toast.success("Added to wishlist");
       }
     } catch (err) {
@@ -91,7 +91,7 @@ const ProductCard = ({
         <p className="text-gray-500 text-xs italic">
           Seller: {product.seller?.fullName || "N/A"}
         </p>
-        <Link href={`/dashboard/product/${product.id}`}>
+        <Link href={`/dashboard/product/${product._id}`}>
           <button className="mt-2 text-[#34C759] text-xs hover:underline">
             View Details
           </button>
@@ -176,7 +176,7 @@ const ProductList: React.FC<ProductListProps> = ({ limit = 0, products: propProd
     <div className="flex flex-wrap gap-4">
       {displayedProducts.map((product) => (
         <ProductCard
-          key={product.id}
+          key={product._id}
           product={product}
           wishlist={wishlist}
           setWishlist={setWishlist}

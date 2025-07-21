@@ -68,10 +68,12 @@ const PostItempage = () => {
         availability: ""
       });
 
-    } catch (error: any) {
-      console.error(error);
-      toast.error('Failed to post product');
-    } finally {
+    } catch (error) {
+  const err = error as { response?: { data?: { message?: string } } };
+  console.error(err);
+  toast.error(err?.response?.data?.message || 'Failed to post product');
+
+} finally {
       setLoading(false)
     }
   };
@@ -111,6 +113,7 @@ const PostItempage = () => {
         {/* Create Product */}
         <div className='mt-8 lg:mt-10 lg:px-10 xl:px-20  lg:w-2/3 mx-auto'>
           <form onSubmit={handleSubmit}>
+            <label htmlFor="productImageUpload" className='hidden'>file</label>
             <input
               type="file"
               accept="image/*"

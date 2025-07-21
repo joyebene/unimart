@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { Mail } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { authAPI } from '@/utils/api';
+import toast from 'react-hot-toast';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState<string>("");
@@ -30,9 +31,9 @@ const ForgotPassword = () => {
       if (response.status === 200) {
         router.push("/verify-otp");
       }
-    } catch (error: any) {
-      console.error("There was an error:", error?.response?.data || error.message);
-      alert("Please try again.");
+    } catch (error) {
+      const err = error as { response?: { data?: { message?: string } } };
+      toast.error(err?.response?.data?.message || 'Failed to send message');
     } finally {
       setLoading(false);
     }
