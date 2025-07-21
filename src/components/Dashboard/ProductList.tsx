@@ -135,7 +135,7 @@ const ProductList: React.FC<ProductListProps> = ({ limit = 0, products: propProd
 
         setFetchedProducts(productsRes.data);
         setWishlist(
-          wishlistRes.data.map((item: { productId: string }) => item.productId)
+          wishlistRes.data.map((item: { product: { _id: string }}) => item.product._id)
         );
         console.log(productsRes.data);
         
