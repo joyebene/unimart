@@ -82,7 +82,7 @@ const MessagesPage = () => {
 
   return (
     <DashboardLayout>
-      <div className="w-full bg-white text-[#333333] p-4 text-[13px] sm:text-sm md:text-base">
+      <div className="w-full bg-white text-[#333333] p-4 text-[13px] sm:text-sm md:text-base min-h-screen">
         <div className="flex flex-col items-center justify-center md:mt-6 mb-6 gap-2">
           <h1 className="font-bold text-2xl md:text-3xl xl:text-4xl text-center">
             My <span className="text-[#34C759]">Messages</span>
@@ -147,12 +147,12 @@ const MessagesPage = () => {
               {<X size={20} />}
             </button>
 
-            <h2 className="text-lg font-semibold mb-4">
+            <h2 className="text-lg font-semibold mb-4 text-black">
               Reply to {selectedUser.fromUser.fullName}
             </h2>
 
             <textarea
-              className="w-full border border-gray-300 rounded p-2 h-32 resize-none"
+              className="w-full border border-gray-300 text-black rounded p-2 h-32 resize-none"
               placeholder="Type your reply..."
               value={replyText}
               onChange={(e) => setReplyText(e.target.value)}

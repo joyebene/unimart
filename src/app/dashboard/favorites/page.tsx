@@ -46,7 +46,7 @@ const MyFavoritePage = () => {
 
   return (
     <DashboardLayout>
-      <div className="w-full bg-white text-[#333333] p-4">
+      <div className="w-full bg-white text-[#333333] p-4 min-h-screen">
         <div className="flex flex-col items-center justify-center md:mt-6 mb-6 gap-2">
           <h1 className="font-bold text-2xl md:text-3xl xl:text-4xl text-center">
             My <span className="text-[#34C759]">Favorites</span>

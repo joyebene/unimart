@@ -180,9 +180,9 @@ const SingleUserPage = () => {
               {<X size={20} />}
             </button>
 
-            <h2 className="text-lg font-semibold mb-4">Send Message to {user.fullName}</h2>
+            <h2 className="text-lg font-semibold mb-4 text-black">Send Message to {user.fullName}</h2>
             <textarea
-              className="w-full border border-gray-300 rounded p-2 h-32 resize-none"
+              className="w-full border border-gray-300 text-black rounded p-2 h-32 resize-none"
               placeholder="Type your message..."
               value={messageText}
               onChange={(e) => setMessageText(e.target.value)}
