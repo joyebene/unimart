@@ -28,7 +28,7 @@ const Sidebar = ({setOpen, openSideBar}: menuProps) => {
 
     const ListNav = ({ name, url, icon }: ListNavProps) => {
         return (
-            <li className='mt-3 md:mt-4'><Link href={url} onClick={() => { setOpen?.(false) }} className={`${name === 'Sign Up' && "bg-[#f7DC67] shadow-md text-white px-3 py-1 sm:px-4 sm:py-2 rounded-full hover:bg-white hover:text-[#f7DC67] hover:border hover:border-[#f7DC67] transition-all duration-300"}  ${name === 'Sign In' && "bg-white text-[#f7DC67] border border-[#f7DC67] shadow-md hover:bg-[#f7DC67] hover:text-white hover:border-none transition-all duration-300 px-3 py-1 sm:px-4 sm:py-2 rounded-full"} flex items-center gap-1 sm:gap-2 md:gap-3 lg:hover:text-[#8BC34A] transition-all duration-300 text-[10px] sm:text-sm md:text-base`}> {icon} {name}</Link></li>
+            <li className='mt-3 md:mt-4'><Link href={url} onClick={() => { setOpen?.(false) }} className={`${name === 'Sign Up' && "bg-[#f7DC67] shadow-md text-white px-3 py-1 sm:px-4 sm:py-2 rounded-full hover:bg-white hover:text-[#f7DC67] hover:border hover:border-[#f7DC67] transition-all duration-300"}  ${name === 'Sign In' && "bg-white text-[#f7DC67] border border-[#f7DC67] shadow-md hover:bg-[#f7DC67] hover:text-white hover:border-none transition-all duration-300 px-3 py-1 sm:px-4 sm:py-2 rounded-full"} flex items-center gap-1 sm:gap-2 md:gap-3 lg:hover:text-[#8BC34A] transition-all duration-300 text-[12px] sm:text-sm md:text-base`}> {icon} {name}</Link></li>
         )
     }
 
