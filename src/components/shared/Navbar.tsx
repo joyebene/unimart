@@ -71,7 +71,7 @@ const Navbar = () => {
                                 <p className='text-[8px] ml-1'>Where Campus Meets Commerce</p>
                             </div>
                         </div>
-                        <div className='w-[67%] xl:w-1/2'>
+                        <div className='w-[67%] lg:w-[75%] xl:w-1/2'>
                             <ul className='flex items-center w-full justify-between'>
                                 <ListNav name='Home' url='/#home' />
                                 <ListNav name='Categories' url='/#categories' />
