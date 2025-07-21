@@ -2,10 +2,25 @@
 
 import { Search } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
-import { productAPI, Product } from '@/utils/api';
+import { productAPI } from '@/utils/api';
 import toast from 'react-hot-toast';
 import ProductList from '@/components/Dashboard/ProductList';
 import { useSearchParams } from 'next/navigation';
+
+
+interface Product {
+  id: string;
+  title: string;
+  imageUrl: string;
+  description: string;
+  location: string;
+  category: string;
+  price: number;
+  seller: {
+    fullName: string;
+  };
+}
+
 
 const BrowseProducts = () => {
   const searchParams = useSearchParams();

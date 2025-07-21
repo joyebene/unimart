@@ -68,7 +68,7 @@ const MyFavoritePage = () => {
         ) : (
           <ProductList
             products={favorites.map((fav) => ({
-              _id: fav.product.id,
+              id: fav.product.id,
               title: fav.product.title,
               price: fav.product.price,
               imageUrl: fav.product.imageUrl,
