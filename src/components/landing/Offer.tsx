@@ -37,7 +37,7 @@ const Offer = () => {
                 <GridBox icon={<Bike color='white' fill='#34C759' />} title='Local Delivery' text='
                 Connect with campus delivery agents'/>
 
-                <GridBox icon={<MessageCircle color='white' fill='#34C759'  />} title='Real-time Chat' text='Talk to buyers/sellers Instently' />
+                <GridBox icon={<MessageCircle color='white' fill='#34C759'  />} title='Real-time Chat' text='Talk to buyers/sellers Instantly' />
             </div>
         </div>
     </div>
