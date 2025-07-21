@@ -55,7 +55,7 @@ export interface Product {
     location?: string;
     availability?: number;
     seller: {
-        connect: { id: string },  // Prisma relation connect
+         connect: { id: string },  // Prisma relation connect
          fullName?: string;
     };
     createdAt?: string;

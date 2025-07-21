@@ -18,6 +18,7 @@ interface WishlistItem {
     imageUrl: string;
     category: string;
     seller: {
+      connect: { id: string };
       fullName: string;
     };
   };
@@ -67,12 +68,13 @@ const MyFavoritePage = () => {
         ) : (
           <ProductList
             products={favorites.map((fav) => ({
-              id: fav.product.id,
+              _id: fav.product.id,
               title: fav.product.title,
               price: fav.product.price,
               imageUrl: fav.product.imageUrl,
               category: fav.product.category,
               seller: {
+                connect: { id: fav.product.seller?.connect?.id || 'unknown' },
                 fullName: fav.product.seller?.fullName || 'N/A',
               },
             }))}
