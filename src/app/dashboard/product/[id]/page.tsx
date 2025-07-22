@@ -103,7 +103,7 @@ export default function ProductDetailsPage() {
               <div className="flex items-center gap-3">
                 <Link href={`/dashboard/user/${product.seller.id}`} className="flex items-center gap-2">
                   <Image
-                    src={product.seller.profileUrl || "/avatar.png"}
+                    src={product.seller.profileUrl || "/dashboard/default-avatar.png"}
                     alt={product.seller.fullName}
                     width={50}
                     height={50}
