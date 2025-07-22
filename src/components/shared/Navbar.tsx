@@ -74,8 +74,8 @@ const Navbar = () => {
                         <div className='w-[67%] lg:w-[75%] xl:w-1/2'>
                             <ul className='flex items-center w-full justify-between'>
                                 <ListNav name='Home' url='/#home' />
-                                <ListNav name='Categories' url='/#categories' />
-                                <ListNav name='Vendors' url='/#vendors' />
+                                <ListNav name='Testimonials' url='/#testimonials' />
+                                <ListNav name='Offers' url='/#we-offer' />
                                 <ListNav name='About' url='/#about' />
                                 <ListNav name='Contact' url='/#contact' />
                                 <li>

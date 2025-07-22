@@ -75,7 +75,7 @@ const Testimonial = () => {
   };
 
   return (
-    <div className="bg-white h-fit mb-20 lg:mb-24 pt-2 sm:pt-20 md:pt-10 xl:pt-8 leading-tight tracking-tight px-4 sm:px-10 xl:px-20">
+    <div id='testimonials' className="bg-white h-fit mb-20 lg:mb-24 pt-2 sm:pt-20 md:pt-10 xl:pt-8 leading-tight tracking-tight px-4 sm:px-10 xl:px-20">
       <div className="text-center mb-10">
         <p className='text-[12px] md:text-sm xl:text-lg text-[#8BC34A] italic'>What Our Users Says!</p>
         <h2 className="font-semibold text-lg sm:text-xl md:text-2xl lg:text-3xl text-center my-1">

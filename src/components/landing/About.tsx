@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const About = () => {
     return (
-        <div className='bg-white h-[100vh] lg:h-[90vh] pt-2 sm:pt-20 md:pt-10 xl:pt-8 leading-tight tracking-tight px-4 sm:px-10 xl:px-20'>
+        <div id='about' className='bg-white h-[100vh] lg:h-[90vh] pt-2 sm:pt-20 md:pt-10 xl:pt-8 leading-tight tracking-tight px-4 sm:px-10 xl:px-20'>
             <div className='text-center'>
                 <p className='text-[12px] md:text-sm xl:text-lg text-[#8BC34A] italic mt-6 sm:mt-2 md:mt-4 text-start'>About Our Market Place</p>
                 <h1 className='text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-start'>About <span className='text-[#f7dc67]'>Uni<span className='text-[#34C759]'>mart</span></span></h1>

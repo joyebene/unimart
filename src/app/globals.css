@@ -49,3 +49,7 @@ body {
   background-color: #34C759;
   /* Tailwind blue-500 */
 }
+
+html {
+  scroll-behavior: smooth;
+}

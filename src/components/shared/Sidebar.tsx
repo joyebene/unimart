@@ -2,14 +2,17 @@
 import React from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
-import {  LayoutDashboard,
-  ShoppingCart,
-  PlusCircle,
-  MessageCircle,
-  Heart,
-  UserCog, X, 
-  Menu,
-  CreditCard} from 'lucide-react';
+import {
+    LayoutDashboard,
+    ShoppingCart,
+    PlusCircle,
+    MessageCircle,
+    Heart,
+    UserCog, X,
+    Menu,
+    CreditCard,
+    LogOut
+} from 'lucide-react';
 
 
 interface ListNavProps {
@@ -18,13 +21,13 @@ interface ListNavProps {
     icon?: React.ReactNode;
 };
 
-interface menuProps{
-  setOpen?: (open: boolean) => void;
-  openSideBar?: boolean;
+interface menuProps {
+    setOpen?: (open: boolean) => void;
+    openSideBar?: boolean;
 }
 
 
-const Sidebar = ({setOpen, openSideBar}: menuProps) => {
+const Sidebar = ({ setOpen, openSideBar }: menuProps) => {
 
     const ListNav = ({ name, url, icon }: ListNavProps) => {
         return (
@@ -32,19 +35,25 @@ const Sidebar = ({setOpen, openSideBar}: menuProps) => {
         )
     }
 
-    const DesktopListNav = ({name, url, icon}: ListNavProps) => {
+    const DesktopListNav = ({ name, url, icon }: ListNavProps) => {
         return (
             <li>
-             <Link href={url} onClick={() => setOpen?.(!openSideBar)} className={`flex items-center gap-3 py-2 w-full hover:bg-gray-200 px-4 rounded-lg transition-all duration-300 ${!openSideBar && "shadow-sm border border-gray-200"}`}>
-            {icon}
-            {openSideBar && (
-                <p className='text-base'>{name}</p>  
-            )}
-            </Link>
+                <Link href={url} onClick={() => setOpen?.(!openSideBar)} className={`flex items-center gap-3 py-2 w-full hover:bg-gray-200 px-4 rounded-lg transition-all duration-300 ${!openSideBar && "shadow-sm border border-gray-200"}`}>
+                    {icon}
+                    {openSideBar && (
+                        <p className='text-base'>{name}</p>
+                    )}
+                </Link>
             </li>
-          
+
         )
     }
+
+    const handleLogout = () => {
+        localStorage.removeItem('token'); // or sessionStorage, depending on your app
+        window.location.href = '/login'; // Redirect to login page after logout
+    };
+
 
 
     return (
@@ -71,14 +80,26 @@ const Sidebar = ({setOpen, openSideBar}: menuProps) => {
                     <div className='mt-6'>
                         <h2 className='text-sm font-semibold'>Menu</h2>
                         <ul className='mt-1 flex flex-col justify-between gap-3 pl-1'>
-                            <ListNav url='/dashboard' name='Dashboard' icon= {<LayoutDashboard size={20} fill='gold' className='text-[#34C759]' />} />
-                            <ListNav url='/dashboard/browse-products' name='Browse Products' icon= {<ShoppingCart size={20} fill='gold' className='text-[#34C759]' />} />
-                            <ListNav url='/dashboard/post-an-item' name='post An Item' icon= {<PlusCircle size={20} fill='gold' className='text-[#34C759]' />} />
-                            <ListNav url='/dashboard/subscriptions' name='Subscriptions' icon= {<CreditCard size={20} fill='gold' className='text-[#34C759]' />} />
-                            <ListNav url='/dashboard/messages' name='Messages' icon= {<MessageCircle size={20} fill='gold' className='text-[#34C759]' />} />
-                            <ListNav url='/dashboard/favorites' name='Favorites' icon= {<Heart size={20} fill='gold' className='text-[#34C759]' />} />
+                            <ListNav url='/dashboard' name='Dashboard' icon={<LayoutDashboard size={20} fill='gold' className='text-[#34C759]' />} />
+                            <ListNav url='/dashboard/browse-products' name='Browse Products' icon={<ShoppingCart size={20} fill='gold' className='text-[#34C759]' />} />
+                            <ListNav url='/dashboard/post-an-item' name='post An Item' icon={<PlusCircle size={20} fill='gold' className='text-[#34C759]' />} />
+                            <ListNav url='/dashboard/subscriptions' name='Subscriptions' icon={<CreditCard size={20} fill='gold' className='text-[#34C759]' />} />
+                            <ListNav url='/dashboard/messages' name='Messages' icon={<MessageCircle size={20} fill='gold' className='text-[#34C759]' />} />
+                            <ListNav url='/dashboard/favorites' name='Favorites' icon={<Heart size={20} fill='gold' className='text-[#34C759]' />} />
                             <ListNav url='/dashboard/profile-settings' name='Profile Settings' icon={<UserCog size={20} fill='gold' className='text-[#34C759]' />} />
+
                         </ul>
+
+                        <div className="mt-28 ml-2">
+                            <button
+                                onClick={handleLogout}
+                                className="flex items-center gap-1 sm:gap-2 md:gap-3 text-red-500 hover:text-red-700 transition-all duration-300 text-[12px] sm:text-sm md:text-base"
+                            >
+                                <LogOut size={20} />
+                                Logout
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             )}
@@ -88,17 +109,26 @@ const Sidebar = ({setOpen, openSideBar}: menuProps) => {
             <div className='hidden lg:block fixed bg-white text-[#333333] shadow-md h-screen z-50'>
                 <div className='p-2'>
                     <div className='w-full pt-4 flex items-center justify-center'>
-                    {openSideBar? <X size={35} fill='gold' className='text-[#34C759] float-end' onClick={() => setOpen?.(false)} /> : <Menu size={35} className='text-gray-600'  onClick={() => setOpen?.(true)} />}
+                        {openSideBar ? <X size={35} fill='gold' className='text-[#34C759] float-end' onClick={() => setOpen?.(false)} /> : <Menu size={35} className='text-gray-600' onClick={() => setOpen?.(true)} />}
                     </div>
                     <ul className='flex flex-col justify-between gap-2 mt-5 w-full'>
-                        <DesktopListNav url='/dashboard' name='Dashboard' icon= {<LayoutDashboard size={30} fill='gold' className='text-[#34C759]' />}  />
-                        <DesktopListNav url='/dashboard/browse-products' name='Browse Products' icon= {<ShoppingCart size={30} fill='gold' className='text-[#34C759]' />} />
-                        <DesktopListNav url='/dashboard/post-an-item' name='Post An Item' icon= {<PlusCircle size={30} fill='gold' className='text-[#34C759]' />} />
-                        <DesktopListNav url='/dashboard/subscriptions' name='Subscriptions' icon= {<CreditCard size={30} fill='gold' className='text-[#34C759]' />} />
-                        <DesktopListNav url='/dashboard/messages' name='Messages' icon= {<MessageCircle size={30} fill='gold' className='text-[#34C759]' />} />
-                        <DesktopListNav url='/dashboard/favorites' name='Favorites' icon= {<Heart size={30} fill='gold' className='text-[#34C759]' />} />
+                        <DesktopListNav url='/dashboard' name='Dashboard' icon={<LayoutDashboard size={30} fill='gold' className='text-[#34C759]' />} />
+                        <DesktopListNav url='/dashboard/browse-products' name='Browse Products' icon={<ShoppingCart size={30} fill='gold' className='text-[#34C759]' />} />
+                        <DesktopListNav url='/dashboard/post-an-item' name='Post An Item' icon={<PlusCircle size={30} fill='gold' className='text-[#34C759]' />} />
+                        <DesktopListNav url='/dashboard/subscriptions' name='Subscriptions' icon={<CreditCard size={30} fill='gold' className='text-[#34C759]' />} />
+                        <DesktopListNav url='/dashboard/messages' name='Messages' icon={<MessageCircle size={30} fill='gold' className='text-[#34C759]' />} />
+                        <DesktopListNav url='/dashboard/favorites' name='Favorites' icon={<Heart size={30} fill='gold' className='text-[#34C759]' />} />
                         <DesktopListNav url='/dashboard/profile-settings' name='Profile Settings' icon={<UserCog size={30} fill='gold' className='text-[#34C759]' />} />
-                    </ul>  
+                    </ul>
+
+                    <div className="mt-20">
+                        <button
+                            onClick={handleLogout}
+                            className={`flex items-center gap-3 text-red-500 py-2 w-full hover:bg-gray-200 px-4 rounded-lg transition-all duration-300 ${!openSideBar && "shadow-sm border border-gray-200"}`}>
+                            <LogOut size={30} />
+                            {openSideBar && <p className="text-base">Logout</p>}
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

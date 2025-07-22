@@ -22,7 +22,7 @@ const GridBox = ({icon, title, text}: GridBoxProps)=> {
 
 const Offer = () => {
   return (
-    <div className='bg-white h-[calc(100vh-5rem)] lg:h-[70vh] pt-2 sm:pt-20 md:pt-10 xl:pt-8 leading-tight tracking-tight px-4 sm:px-10 xl:px-20'>
+    <div id='we-offer' className='bg-white h-[calc(100vh-5rem)] lg:h-[70vh] pt-2 sm:pt-20 md:pt-10 xl:pt-8 leading-tight tracking-tight px-4 sm:px-10 xl:px-20'>
         <div className='w-full'>
             <div className='flex flex-col items-center justify-center mb-6 md:mb-10 xl:mb-12'>
                 <p className='text-[12px] md:text-sm xl:text-lg text-[#8BC34A] italic'>What We Offer</p>
