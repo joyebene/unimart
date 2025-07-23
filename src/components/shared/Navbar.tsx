@@ -44,8 +44,8 @@ const Navbar = () => {
                         <div className='mt-6 md:mt-8'>
                             <ul>
                                 <ListNav name='Home' url='/#home' icon={<Home size={13} fill='gold' className='text-[#34C759]' />} />
-                                <ListNav name='Categories' url='/#categories' icon={<ShoppingBag size={13}fill='gold' className='text-[#34C759]' />} />
-                                <ListNav name='Vendors' url='/#vendors' icon={<Store size={13} fill='gold' className='text-[#34C759]' />} />
+                                <ListNav name='Testimonials' url='/#testimonials' icon={<ShoppingBag size={13}fill='gold' className='text-[#34C759]' />} />
+                                <ListNav name='Our Offer' url='/#we-offer' icon={<Store size={13} fill='gold' className='text-[#34C759]' />} />
                                 <ListNav name='About' url='/#about' icon={<Info size={13} fill='gold' className='text-[#34C759]' />} />
                                 <ListNav name='Contact' url='/#contact' icon={<Phone size={13} fill='gold' className='text-[#34C759]' />} />
                                 <li className='mt-1 sm:mt-3 md:mt-4'>
