@@ -373,7 +373,7 @@ const ProfilePage = () => {
         {showPasswordModal && (
           <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg shadow-xl p-6 w-[90%] max-w-md">
-              <h2 className="text-lg font-semibold mb-4">Change Password</h2>
+              <h2 className="text-lg font-semibold mb-4 text-black">Change Password</h2>
               {(['currentPassword', 'newPassword', 'confirmPassword'] as const).map((key) => (
                 <input
                   key={key}
@@ -384,6 +384,7 @@ const ProfilePage = () => {
                   }
                   value={passwordForm[key]}
                   onChange={(e) => setPasswordForm({ ...passwordForm, [key]: e.target.value })}
+                  className='text-black'
                 />
               ))
               }
